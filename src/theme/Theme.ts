@@ -1,5 +1,5 @@
-import {ColorPalette} from "./ColorPalette";
+import { ColorPalette } from "./ColorPalette";
 
 export class Theme {
-	constructor(private colorPallete: ColorPalette) {}
+	constructor(private colorPallete: ColorPalette) { }
 }

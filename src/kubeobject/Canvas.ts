@@ -1,5 +1,5 @@
-import {Theme} from "../theme/Theme";
+import { Theme } from "../theme/Theme";
 
 export class Canvas {
-	constructor(private theme: Theme) {}
+	constructor(private theme: Theme) { }
 }

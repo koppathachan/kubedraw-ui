@@ -12,5 +12,5 @@ export class ColorPalette {
 		private onBackground: string,
 		private onSurface: string,
 		private onError: string,
-	) {}
+	) { }
 }
