@@ -102,6 +102,10 @@ export abstract class Node<T extends NodeDelegate = NodeDelegate> {
                 return this.delegate.getSize();
         }
 
+        get DragBoundFunc() {
+                return this.delegate.dragBoundFunc();
+        }
+
         hide = () => this.delegate.hide();
         show = () => this.delegate.show();
         add = (...el: Node[]) =>

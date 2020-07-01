@@ -1,5 +1,7 @@
 import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
+import {ReplicaSet} from "./shapes/ReplicaSet";
+import {Position} from "./shapes/Position";
 
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -25,8 +27,9 @@ con.addEventListener('dragover', function (e) {
 	e.preventDefault(); // !important
 });
 
+let namespace: any;
 con.addEventListener('drop', function (e) {
-	let resource: any;
+	let replicaSet: any;
 	e.preventDefault();
 	stage.setPointersPositions(e);
 
@@ -38,20 +41,30 @@ con.addEventListener('drop', function (e) {
 			offsetY: 30,
 			scaleX: 0.8,
 			scaleY: 0.8,
-		  });
-			resource = new Namespace({
+		});
+		if (itemURL == "http://localhost:3001/assets/ns.svg") {
+			namespace = new Namespace({
 				width: 800,
 				height: 500,
 				stroke: 'black',
 				strokeWidth: 2,
 				dashEnabled: true,
-				dash: ([2,4])
+				dash: ([2, 4])
 			}, image);
-		layer.add(resource.Shape);
-		resource.Shape.position(stage.getPointerPosition());
-		//@ts-ignore
-		resource.Shape.draggable(true);
-
+			namespace.Group.position(stage.getPointerPosition());
+		} else if (itemURL == "http://localhost:3001/assets/rs.svg" && namespace != undefined) {
+			replicaSet = new ReplicaSet({
+				width: 150,
+				height: 50,
+				stroke: 'black',
+				strokeWidth: 2,
+				cornerRadius: 50,
+			}, image);
+			replicaSet.Group.position(new Position(namespace.Position.X + 350, namespace.Position.Y + 100));
+			replicaSet.addPods();
+			namespace.Group.add(replicaSet.Group);
+		}
+		layer.add(namespace.Group);
 		layer.batchDraw();
 	});
 });
