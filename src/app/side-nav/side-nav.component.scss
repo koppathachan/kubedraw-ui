@@ -1,0 +1,56 @@
+    // .example-container {
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     background: #eee;
+    // }
+    // mat-sidenav {
+    //     width: 250px;
+    //     // min-width: 150px;
+    //     // max-width: 250px;
+    // }
+    // .container {
+    //     height: 200px;
+    //     position: relative;
+    // }
+    // .center {
+    //     margin: 0;
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     -ms-transform: translate(-50%, -50%);
+    //     transform: translate(-50%, -50%);
+    // }
+    p {
+        font-family: Lato;
+        font-size: 16px;
+        margin-top: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+    }
+    
+    #container {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    #drag-items img {
+        height: 100px;
+    }
+    
+    .sideNav {
+        width: 200px;
+        position: fixed;
+        top: 3px;
+        left: 6px;
+        bottom: 5px;
+        background: #eee;
+    }

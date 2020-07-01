@@ -1,0 +1,35 @@
+<!-- <mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened> -->
+<!-- <ko-stage [config]="configStage">
+    <ko-layer>
+        <ko-rect [config]="configRectangle" (click)="handleClick($event)"></ko-rect>
+    </ko-layer>
+</ko-stage>` -->
+<!-- </mat-sidenav>
+    <mat-sidenav-content>
+    </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+
+<head>
+    <script src="https://unpkg.com/konva@7.0.1/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Drop DOM element Demo</title>
+</head>
+
+<body>
+    <div class="sideNav">
+        <div id="drag-items">
+            <p><b> Drag and drop the icons to build your kubernetes cluster</b> </p>
+            <img src="/assets/pod-256.png" draggable="true" />
+            <img src="/assets/deploy-256.png" draggable="true" />
+            <img src="/assets/cm-256.png" draggable="true" />
+            <img src="/assets/crb-256.png" draggable="true" />
+            <img src="/assets/cronjob-256.png" draggable="true" />
+            <img src="/assets/ds-256.png" draggable="true" />
+            <img src="/assets/ep-256.png" draggable="true" />
+            <img src="/assets/user-128.png" draggable="true" />
+        </div>
+    </div>
+    <div id="container"></div>
+</body>
