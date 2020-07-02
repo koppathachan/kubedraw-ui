@@ -2,10 +2,9 @@ import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
-import {names} from "konva/types/Node";
+import {ConfigMap} from './shapes/ConfigMap';
 
 window.onload = () => {
-
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 
@@ -27,7 +26,7 @@ window.onload = () => {
 
 	var con = stage.container();
 	con.addEventListener('dragover', function (e) {
-		e.preventDefault(); // !important
+		e.preventDefault();
 	});
 
 	let namespace: any;
@@ -72,12 +71,12 @@ window.onload = () => {
 			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined) {
 				let group = new Konva.Group();
 				image.setAttrs({
-                    x: stage.getPointerPosition()?.x,
-                    y: stage.getPointerPosition()?.y,
-                    scaleX: 0.7,
-                    scaleY: 0.7,
-                    offsetX: -10,
-                    offsetY: -10,
+					x: stage.getPointerPosition()?.x,
+					y: stage.getPointerPosition()?.y,
+					scaleX: 0.7,
+					scaleY: 0.7,
+					offsetX: -10,
+					offsetY: -10,
 				});
 				group.add(image);
 				if (replicaSet != null) {
@@ -95,6 +94,12 @@ window.onload = () => {
 					replicaSet.Group.add(group);
 				}
 				namespace.Group.add(group);
+				layer.batchDraw();
+			}
+			else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
+				let configMap = new ConfigMap(image);
+				configMap.getData();
+				namespace.Group.add(configMap.Group);
 				layer.batchDraw();
 			}
 		});
