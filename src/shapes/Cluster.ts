@@ -7,6 +7,8 @@ import { Secret } from "./Secret";
 import { ConfigMap } from "./ConfigMap";
 import { Position } from "./Position";
 import { Ingress } from "./Ingress";
+import {ServiceMutation} from "../api/ServiceMutation";
+import {SecretMutation} from "../api/SecretMutation";
 
 export class Cluster {
 	private readonly layer: Konva.Layer;
@@ -107,6 +109,12 @@ export class Cluster {
 						namespace.Group.add(secret.Group);
 						this.layer.batchDraw();
 					}
+					let muser = new SecretMutation("mycluster", "http://localhost:50051/design")
+					muser.apply(muser.createSecret({
+						apiVersion: "v1",
+						metadata: {name: "something"},
+						type: "Secret Data"
+					})).then(console.log);
 				}
 				else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
 					let configMap = new ConfigMap(image);
