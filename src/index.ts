@@ -3,6 +3,9 @@ import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
 import {ConfigMap} from './shapes/ConfigMap';
+import {Service} from "./shapes/Service";
+import {Secret} from "./shapes/Secret";
+import {names} from "konva/types/Node";
 
 window.onload = () => {
 	var width = window.innerWidth;
@@ -30,8 +33,8 @@ window.onload = () => {
 	});
 
 	let namespace: any;
+	let replicaSet: any;
 	con.addEventListener('drop', function (e) {
-		let replicaSet: any;
 		e.preventDefault();
 		stage.setPointersPositions(e);
 
@@ -41,8 +44,8 @@ window.onload = () => {
 				y: 0,
 				offsetX: 50,
 				offsetY: 30,
-				scaleX: 0.8,
-				scaleY: 0.8,
+				scaleX: 1,
+				scaleY: 1,
 			});
 			if (itemURL == "http://localhost:3001/assets/ns.svg") {
 				namespace = new Namespace({
@@ -58,6 +61,7 @@ window.onload = () => {
 				layer.batchDraw();
 			} else if (itemURL == "http://localhost:3001/assets/rs.svg" && namespace != undefined) {
 				replicaSet = new ReplicaSet({
+					name: "ReplicaSet",
 					width: 180,
 					height: 100,
 					stroke: 'black',
@@ -68,32 +72,38 @@ window.onload = () => {
 				replicaSet.addPods();
 				namespace.Group.add(replicaSet.Group);
 				layer.batchDraw();
-			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined) {
-				let group = new Konva.Group();
+			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined && replicaSet != undefined) {
 				image.setAttrs({
-					x: stage.getPointerPosition()?.x,
-					y: stage.getPointerPosition()?.y,
-					scaleX: 0.7,
-					scaleY: 0.7,
-					offsetX: -10,
-					offsetY: -10,
+					x: stage.find('.ReplicaSet')[0].getParent().attrs.x - 400,
+					y: stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
 				});
-				group.add(image);
-				if (replicaSet != null) {
-					let line = new Konva.Line({
-						points: [
-							replicaSet.Position.X,
-							replicaSet.Position.Y,
-							image.position().x,
-							image.position().y
-						],
-						stroke: "blue",
-						strokeWidth: 2
-					});
-					group.add(line);
-					replicaSet.Group.add(group);
-				}
-				namespace.Group.add(group);
+				let service = new Service({
+					points: [
+						stage.find('.ReplicaSet')[0].getParent().attrs.x - 350,
+						stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
+						image.position().x,
+						image.position().y
+					],
+					stroke: "black",
+					strokeWidth: 2,
+				}, image);
+
+				replicaSet.Group.add(service.Group);
+				namespace.Group.add(replicaSet.Group);
+				layer.batchDraw();
+			}
+			else if (itemURL == "http://localhost:3001/assets/secret.svg" && namespace != undefined) {
+				let secret = new Secret(image);
+				image.setAttrs({
+					x: 700,
+					y: 0,
+					offsetX: 50,
+					offsetY: 30,
+					scaleX: 1,
+					scaleY: 1,
+				});
+				secret.getData();
+				namespace.Group.add(secret.Group);
 				layer.batchDraw();
 			}
 			else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
