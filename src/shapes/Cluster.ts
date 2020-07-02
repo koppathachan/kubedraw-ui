@@ -153,18 +153,18 @@ export class Cluster {
 					let muser = new IngressMutation("mycluster", "http://localhost:50051/design");
 					muser.apply(muser.createIngress({
 						apiVersion: "v1",
-						metadata: {name: "Innnnnggggresshhh"},
+						metadata: {name: "Ingress"},
 						spec: {
 							rules: [{
-								host: "Mein karega",
+								host: "localhost",
 								http: {
 									paths: [
 										{
-											path: "Highway to hell",
+											path: "/api/v1/mini-kube",
 											backend: [
 												{
-													serviceName: "AC-DC",
-													servicePort: 1
+													serviceName: "hello-kubernetes",
+													servicePort: 80
 												}
 											]
 										}
