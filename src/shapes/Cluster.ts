@@ -152,7 +152,7 @@ export class Cluster {
 					this.layer.batchDraw();
 					let muser = new IngressMutation("mycluster", "http://localhost:50051/design");
 					muser.apply(muser.createIngress({
-						apiVersion: "v1",
+						apiVersion: "extensions/v1beta1",
 						metadata: {name: "Ingress"},
 						spec: {
 							rules: [{
