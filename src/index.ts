@@ -37,8 +37,8 @@ con.addEventListener('drop', function (e) {
 	muser.apply(muser.createNamespace({
 		apiVersion:"v1",
 		metadata: {
-			name: "namepsacespace",
-			annotations: {}
+			name: "namespacespace",
+			annotations: {},
 		}
 	})).then(console.log)
 

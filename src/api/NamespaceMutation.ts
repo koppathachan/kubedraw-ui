@@ -10,7 +10,7 @@ export class NamespaceMutation {
 	createNamespace = (kobj: NamespaceConfig) => `
 	mutation {
 		createNamespace(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-		metadata: {name: "${kobj.metadata.name}", annotations: "${kobj.annotations}"}) {
+		metadata: {name: "${kobj.metadata.name}"}) {
 			apiVersion,
 			kind
 		}
