@@ -24,10 +24,11 @@ export class ConfigMap extends Node {
         return this.group;
     }
 
-    getData = () => {
+    storeConfig = () => {
         let configuration = prompt("Paste configuration in JSON format", "");
-        if (configuration != null) {
+        if (configuration != null && configuration!== "") {
             this.configuration = JSON.parse(configuration);
+            return true;
         }
     }
 

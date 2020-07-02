@@ -102,15 +102,19 @@ window.onload = () => {
 					scaleX: 1,
 					scaleY: 1,
 				});
-				secret.getData();
-				namespace.Group.add(secret.Group);
-				layer.batchDraw();
+				let isDataStored = secret.getData();
+				if (isDataStored) {
+					namespace.Group.add(secret.Group);
+					layer.batchDraw();
+				}
 			}
 			else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
 				let configMap = new ConfigMap(image);
-				configMap.getData();
-				namespace.Group.add(configMap.Group);
-				layer.batchDraw();
+				let isDataStored = configMap.storeConfig();
+				if (isDataStored) {
+					namespace.Group.add(configMap.Group);
+					layer.batchDraw();
+				}
 			}
 		});
 	});
