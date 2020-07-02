@@ -8,15 +8,18 @@ export class SecretMutation {
 	apply = (query: string) => this.client.request(query)
 
 	createSecret = (kobj: SecretConfig) => `
-	mutation {
-		createSecret(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-        metadata: {name: "${kobj.metadata.name}"}, 
-        type: "secret",
-        data: [{"name" : "kube"}, {"test": "tested"}]) {
-			apiVersion,
-			kind
+	mutation{
+		createConfigmap(
+		  apiVersion : "${kobj.apiVersion}",
+		  cluster: "${this.cluster}",
+		  metadata: {name: "${kobj.metadata.name}"},
+		  type: "${kobj.type}",
+		  data: "[{key: 'key1', value: 'val1'},{key: 'key2', value: 'val2'}]"
+		){
+		  apiVersion,
+		  kind
 		}
-	  }
+	}
 	`;
 
 	constructor(cluster: string, ep: string) {

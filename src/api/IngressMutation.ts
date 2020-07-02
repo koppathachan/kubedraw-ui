@@ -8,11 +8,15 @@ export class IngressMutation {
 	apply = (query: string) => this.client.request(query)
 
 	createIngress = (kobj: IngressConfig) => `
-	mutation {
-		createDeployment(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-		metadata: {name: "${kobj.metadata.name}", namespace: "${kobj.metadata.namespace}"}) {
-			apiVersion,
-			kind
+	mutation{
+		createIngress(
+		  apiVersion : "${kobj.apiVersion}",
+		  cluster: "${this.cluster}",
+		  metadata: {name: "${kobj.metadata.name}"},
+		  spec: "${kobj.spec}"
+		){
+		  apiVersion,
+		  kind
 		}
 	  }
 	`;
