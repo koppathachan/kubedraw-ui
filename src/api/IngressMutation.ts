@@ -15,20 +15,18 @@ export class IngressMutation {
 		  metadata: {name: "${kobj.metadata.name}"},
 		  spec: {
               rules: [{
-                  host: "${kobj.spec.rules[0].host}",
-                  http: {
-                      paths: [
-                          {
-                              path: "${kobj.spec.rules[0].http?.paths[0].path}",
-                              backend: [
-                                  {
-                                      serviceName: "${kobj.spec.rules[0].http?.paths[0].backend[0].serviceName}",
-                                      servicePort: ${kobj.spec.rules[0].http?.paths[0].backend[0].servicePort}
-                                  }
-                              ]
-                          }
-                      ]
-                  }
+				host: "${kobj.spec.rules[0].host}",
+				http: {
+					paths: [
+					{
+						path: "${kobj.spec.rules[0].http?.paths[0].path}",
+						backend: {
+							serviceName: "${kobj.spec.rules[0].http?.paths[0].backend.serviceName}",
+							servicePort: ${kobj.spec.rules[0].http?.paths[0].backend.servicePort}
+						}
+					}
+					]
+				}
               }]
           }
 		){

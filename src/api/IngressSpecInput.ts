@@ -5,7 +5,7 @@ export class BackendObject {
 
 export class PathObject {
     path?: string;
-    backend?: Array<BackendObject>;
+    backend?: BackendObject;
 }
 
 export class HttpObject {
