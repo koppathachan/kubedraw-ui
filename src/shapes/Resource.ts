@@ -22,6 +22,7 @@ export class Resource extends Node {
     get Group() {
         return this.group;
     }
+    
     on = (eventName: DomEvent, handler: Function) =>
         this.delegate.on(eventName, (e) => handler(e.target))
     off = (eventName: string) => this.delegate.off(eventName);

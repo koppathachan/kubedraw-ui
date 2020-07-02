@@ -2,6 +2,7 @@ import Konva from "konva";
 import {DomEvent} from "./enums/DomEvent";
 import {Resource} from "./Resource";
 import {Pod} from "./Pod";
+import {Position} from "./Position";
 
 export class ReplicaSet extends Resource {
 
@@ -15,18 +16,19 @@ export class ReplicaSet extends Resource {
     off = (eventName: string) => this.delegate.off(eventName);
 
     addPods() {
-        let container = prompt("How many pods?", "0");
-        for (let it = 0; it < Number(container); it++) {
-            let pod: any;
-            Konva.Image.fromURL('./assets/pod.svg', function (darthNode: Konva.Image) {
+        let containers = prompt("How many pods?", "0");
+        for (let it = 0; it < Number(containers); it++) {
+            Konva.Image.fromURL("./assets/pod.svg", (darthNode: Konva.Image) => {
                 darthNode.setAttrs({
-                    scaleX: 0.5,
-                    scaleY: 0.5,
+                    x: 55 * it,
+                    y: 30,
+                    scaleX: 0.7,
+                    scaleY: 0.7,
+                    offsetX: -10,
+                    offsetY: -10,
                 });
-                pod = new Pod({}, darthNode);
-            });
-            this.Group.add(pod);
+                this.Group.add(darthNode);
+            })
         }
     }
-
 }
