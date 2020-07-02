@@ -1,7 +1,8 @@
 import Konva from "konva";
-import {Namespace} from "./shapes/Namespace";
-import {ReplicaSet} from "./shapes/ReplicaSet";
-import {Position} from "./shapes/Position";
+import { Namespace } from "./shapes/Namespace";
+import { ReplicaSet } from "./shapes/ReplicaSet";
+import { Position } from "./shapes/Position";
+import { NamespaceMutation } from "./api/NamespaceMutation";
 
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -32,6 +33,14 @@ con.addEventListener('drop', function (e) {
 	let replicaSet: any;
 	e.preventDefault();
 	stage.setPointersPositions(e);
+	let muser = new NamespaceMutation("mycluster", "http://localhost:50051/design")
+	muser.apply(muser.createNamespace({
+		apiVersion:"v1",
+		metadata: {
+			name: "namepsacespace",
+			annotations: {}
+		}
+	})).then(console.log)
 
 	Konva.Image.fromURL(itemURL, function (image: Konva.Image) {
 		image.setAttrs({
