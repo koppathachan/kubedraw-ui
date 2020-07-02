@@ -12,7 +12,7 @@ export class ConfigMapMutation {
 		createConfigmap(
 		  apiVersion : "${kobj.apiVersion}",
 		  cluster: "${this.cluster}",
-		  metadata: {name: "${kobj.metadata.name}"},
+		  metadata: {name: "${kobj.metadata.name}", namespace: "mynamespace"},
 		  data: [{key: "key1", value: "val1"},{key: "key2", value: "val2"}]
 		){
 		  apiVersion,

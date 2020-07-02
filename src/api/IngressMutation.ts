@@ -12,7 +12,8 @@ export class IngressMutation {
 		createIngress(
 		  apiVersion : "${kobj.apiVersion}",
 		  cluster: "${this.cluster}",
-		  metadata: {name: "${kobj.metadata.name}"},
+		  metadata: {name: "${kobj.metadata.name}", namespace: "mynamespace"
+			},
 		  spec: {
               rules: [{
 				host: "${kobj.spec.rules[0].host}",

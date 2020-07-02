@@ -12,8 +12,7 @@ export class SecretMutation {
 		createSecret(
 		  apiVersion : "${kobj.apiVersion}",
 		  cluster: "${this.cluster}",
-		  metadata: {name: "${kobj.metadata.name}"},
-		  type: "${kobj.type}",
+		  metadata: {name: "${kobj.metadata.name}", namespace: "mynamespace"},
 		  data: [{key: "key1", value: "val1"},{key: "key2", value: "val2"}]
 		){
 		  apiVersion,
