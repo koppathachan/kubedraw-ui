@@ -1,16 +1,17 @@
-import { ConfigMapConfig } from "./ConfigMapConfig";
+import { SecretConfig } from "./SecretsConfig";
 import { GraphQLClient } from "graphql-request";
 
-export class ConfigMapMutation {
+export class SecretMutation {
 	private cluster: string;
 	private client: GraphQLClient;
 
 	apply = (query: string) => this.client.request(query)
 
-	createConfigmap = (kobj: ConfigMapConfig) => `
+	createSecret = (kobj: SecretConfig) => `
 	mutation {
-		createConfigmap(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
+		createSecret(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
         metadata: {name: "${kobj.metadata.name}"}, 
+        type: "secret",
         data: [{"name" : "kube"}, {"test": "tested"}]) {
 			apiVersion,
 			kind
