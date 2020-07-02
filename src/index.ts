@@ -60,8 +60,8 @@ con.addEventListener('drop', function (e) {
 				strokeWidth: 2,
 				cornerRadius: 50,
 			}, image);
+			replicaSet.Group.add(replicaSet.addPods());
 			replicaSet.Group.position(new Position(namespace.Position.X + 350, namespace.Position.Y + 100));
-			replicaSet.addPods();
 			namespace.Group.add(replicaSet.Group);
 		}
 		layer.add(namespace.Group);

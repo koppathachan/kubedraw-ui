@@ -15,18 +15,20 @@ export class ReplicaSet extends Resource {
     off = (eventName: string) => this.delegate.off(eventName);
 
     addPods() {
-        let container = prompt("How many pods?", "0");
-        for (let it = 0; it < Number(container); it++) {
-            let pod: any;
-            Konva.Image.fromURL('./assets/pod.svg', function (darthNode: Konva.Image) {
-                darthNode.setAttrs({
-                    scaleX: 0.5,
-                    scaleY: 0.5,
-                });
-                pod = new Pod({}, darthNode);
+        let containers = prompt("How many pods?", "0");
+        // let podGroup = new Konva.Group();
+        Konva.Image.fromURL("./assets/pod.svg",  (darthNode: Konva.Image) => {
+            darthNode.setAttrs({
+                x: 200,
+                y: 50,
+                scaleX: 0.5,
+                scaleY: 0.5,
             });
-            this.Group.add(pod);
-        }
-    }
 
+            for (let it = 0; it < Number(containers); it++) {
+                let pod: Pod = new Pod({}, darthNode);
+                this.Group.add(pod.Group);
+            }
+        })
+    }           
 }
