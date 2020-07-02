@@ -10,6 +10,8 @@ import { Ingress } from "./Ingress";
 import {ServiceMutation} from "../api/ServiceMutation";
 import {SecretMutation} from "../api/SecretMutation";
 import {ConfigMapMutation} from "../api/ConfigMapMutation";
+import {IngressMutation} from "../api/IngressMutation";
+import {HttpObject} from "../api/IngressSpecInput";
 
 export class Cluster {
 	private readonly layer: Konva.Layer;
@@ -113,7 +115,7 @@ export class Cluster {
 					let muser = new SecretMutation("mycluster", "http://localhost:50051/design")
 					muser.apply(muser.createSecret({
 						apiVersion: "v1",
-						metadata: {name: "something"},
+						metadata: {name: "It's a secret"},
 						type: "Secret Data"
 					})).then(console.log);
 				}
@@ -127,8 +129,8 @@ export class Cluster {
 					let muser = new ConfigMapMutation("mycluster", "http://localhost:50051/design");
 					muser.apply(muser.createConfigmap({
 						apiVersion: "v1",
-						metadata: {name: "something"},
-					}))
+						metadata: {name: "The configuration"},
+					})).then(console.log);
 				} else if (itemURL == "http://localhost:3001/assets/ing.svg" && namespace != undefined) {
 					console.log(this.stage.find('.Service')[0].x());
 					image.setAttrs({
@@ -148,6 +150,29 @@ export class Cluster {
 					replicaSet.Group.add(ingress.Group);
 					namespace.Group.add(replicaSet.Group);
 					this.layer.batchDraw();
+					let muser = new IngressMutation("mycluster", "http://localhost:50051/design");
+					muser.apply(muser.createIngress({
+						apiVersion: "v1",
+						metadata: {name: "Innnnnggggresshhh"},
+						spec: {
+							rules: [{
+								host: "Mein karega",
+								http: {
+									paths: [
+										{
+											path: "Highway to hell",
+											backend: [
+												{
+													serviceName: "AC-DC",
+													servicePort: 1
+												}
+											]
+										}
+									]
+								}
+							}]
+						}
+					})).then(console.log);
 				}
 			});
 		});
