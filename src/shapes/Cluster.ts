@@ -75,12 +75,13 @@ export class Cluster {
 					namespace.Group.add(replicaSet.Group);
 					this.layer.batchDraw();
 					muser.apply(muser.createDeployment({
-						apiVersion: "v1",
+						apiVersion: "apps/v1",
 						labels: {
 							"app": "hello-kubernetes"
 						},
 						metadata: {
 							name: "hello-kubernetes",
+							namespace: "mynamespace",
 							annotations: [],
 						},
 						spec: {

@@ -18,9 +18,6 @@ export class DeploymentMutation {
 			  app:"${kobj.labels.app}"
 			},
 			namespace: "${kobj.metadata.namespace}",
-			annotations: [
-				{key: "name", value: "ReplicaSet"}
-			],
 		  },
 		  spec: {
 			replicas:${kobj.spec.replicas},
@@ -31,8 +28,7 @@ export class DeploymentMutation {
 			},
 			template: {
 			  metadata:{
-				name: "${kobj.spec.template.metadata.app}",
-				namespace: "${kobj.metadata.namespace}"
+				name: "${kobj.metadata.name}",
 	  
 			  },
 			  spec: {
