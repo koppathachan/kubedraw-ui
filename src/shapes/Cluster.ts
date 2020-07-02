@@ -129,6 +129,7 @@ export class Cluster {
 						metadata: {
 							name: "hello-kubernetes",
 							annotations: [],
+							namespace: "mynamespace"
 						},
 						spec: {
 							selector: {
