@@ -18,9 +18,6 @@ export class DeploymentMutation {
 			  app:"${kobj.labels.app}"
 			},
 			namespace: "${kobj.metadata.namespace}",
-			annotations: [
-			  {key: "sf", value:"asdf"}
-			]
 		  },
 		  spec: {
 			replicas:${kobj.spec.replicas},
@@ -31,16 +28,15 @@ export class DeploymentMutation {
 			},
 			template: {
 			  metadata:{
-				name: "${kobj.spec.template.metadata.app}",
-				namespace: "${kobj.metadata.namespace}"
+				name: "${kobj.metadata.name}",
 	  
 			  },
 			  spec: {
 				ports:{
 				  containerPort: "${kobj.spec.template.spec.ports.containerPort}"
 				},
-				name: "myapp",
-				image:"myapp"
+				name:"${kobj.spec.template.spec.name}",
+				image:"${kobj.spec.template.spec.image}"
 			  }
 			}
 		  }
