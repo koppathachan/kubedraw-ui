@@ -12,8 +12,4 @@ export class Namespace extends Resource {
                 super(rectConfig, image);
                 this.Group.draggable(true);
         }
-
-        on = (eventName: DomEvent, handler: Function) =>
-                this.delegate.on(eventName, (e) => handler(e.target))
-        off = (eventName: string) => this.delegate.off(eventName);
 }

@@ -5,7 +5,7 @@ import {Position} from "./shapes/Position";
 import {ConfigMap} from './shapes/ConfigMap';
 import {Service} from "./shapes/Service";
 import {Secret} from "./shapes/Secret";
-import {names} from "konva/types/Node";
+import {NamespaceMutation} from "./api/NamespaceMutation";
 
 window.onload = () => {
 	var width = window.innerWidth;
@@ -34,9 +34,18 @@ window.onload = () => {
 
 	let namespace: any;
 	let replicaSet: any;
+
 	con.addEventListener('drop', function (e) {
 		e.preventDefault();
 		stage.setPointersPositions(e);
+		let muser = new NamespaceMutation("mycluster", "http://localhost:50051/design")
+		muser.apply(muser.createNamespace({
+			apiVersion: "v1",
+			metadata: {
+				name: "namespacespace",
+				annotations: {},
+			}
+		})).then(console.log)
 
 		Konva.Image.fromURL(itemURL, function (image: Konva.Image) {
 			image.setAttrs({
