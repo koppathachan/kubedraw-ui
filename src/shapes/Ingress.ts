@@ -7,7 +7,7 @@ export class Ingress extends Node {
 	constructor(lineConfig: Konva.LineConfig, image: Konva.Image) {
 		super();
 		this.delegate = new Konva.Line(lineConfig);
-		this.group = new Konva.Group({ draggable: true });
+		this.group = new Konva.Group();
 		this.group.add(this.delegate);
 		this.group.add(image);
 		this.delegate.zIndex(0);

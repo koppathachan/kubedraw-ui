@@ -117,23 +117,23 @@ export class Cluster {
 						this.layer.batchDraw();
 					}
 				} else if (itemURL == "http://localhost:3001/assets/ing.svg" && namespace != undefined) {
+					console.log(this.stage.find('.Service')[0].x());
 					image.setAttrs({
-						x: this.stage.find('.Service')[0].x() + 50,
+						x: this.stage.find('.Service')[0].x() - 150,
 						y: this.stage.find('.Service')[0].y() + 50,
 					});
-					let service = new Ingress({
+					let ingress = new Ingress({
 						points: [
-							this.stage.find('.ReplicaSet')[0].getParent().attrs.x - 350,
-							this.stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
+							this.stage.find('.Service')[0].x() - 98,
+							this.stage.find('.Service')[0].y() + 50,
 							image.position().x,
 							image.position().y
 						],
-						stroke: "blue",
+						stroke: "black",
 						strokeWidth: 2,
 					}, image);
-
-					replicaSet.Group.add(service.Group);
-					// namespace.Group.add(replicaSet.Group);
+					replicaSet.Group.add(ingress.Group);
+					namespace.Group.add(replicaSet.Group);
 					this.layer.batchDraw();
 				}
 			});
