@@ -10,6 +10,6 @@ export class Namespace extends Resource {
 
         constructor(rectConfig: Konva.RectConfig, image: Konva.Image) {
                 super(rectConfig, image);
-                this.Group.draggable(true);
+				this.Group.draggable(true);
         }
 }
