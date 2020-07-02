@@ -9,10 +9,47 @@ export class DeploymentMutation {
 
 	createDeployment = (kobj: DeploymentConfig) => `
 	mutation {
-		createDeployment(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-		metadata: {name: "${kobj.metadata.name}", namespace: "${kobj.metadata.namespace}"}) {
-			apiVersion,
-			kind
+		createDeployment(
+		  apiVersion: "${kobj.apiVersion}",
+		  cluster: "${this.cluster}",
+		  metadata: {
+			name: "${kobj.metadata.name}",
+			labels: {
+			  app:"${kobj.labels.app}"
+			},
+			namespace: "${kobj.metadata.namespace}",
+			annotations: [
+			  {key: "sf", value:"asdf"}
+			]
+		  },
+		  spec: {
+			replicas:${kobj.spec.replicas},
+			selector: {
+			  matchLabels: {
+				app: "${kobj.spec.selector.matchLabels.app}"
+			  }
+			},
+			template: {
+			  metadata:{
+				name: "${kobj.spec.template.metadata.app}",
+				namespace: "${kobj.metadata.namespace}"
+	  
+			  },
+			  spec: {
+				ports:{
+				  containerPort: "${kobj.spec.template.spec.ports.containerPort}"
+				},
+				name: "myapp",
+				image:"myapp"
+			  }
+			}
+		  }
+		) {
+		  kind,
+		  metadata {
+			name,
+			labels {app}
+		  }
 		}
 	  }
 	`;

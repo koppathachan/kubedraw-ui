@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
-export class DeploymentMutation {
+export class DeployMutation {
 	private cluster: string;
 	private client: GraphQLClient;
 

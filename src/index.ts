@@ -1,11 +1,11 @@
 import Konva from "konva";
-import {Namespace} from "./shapes/Namespace";
-import {ReplicaSet} from "./shapes/ReplicaSet";
-import {Position} from "./shapes/Position";
-import {ConfigMap} from './shapes/ConfigMap';
-import {Service} from "./shapes/Service";
-import {Secret} from "./shapes/Secret";
-import {NamespaceMutation} from "./api/NamespaceMutation";
+import { Namespace } from "./shapes/Namespace";
+import { ReplicaSet } from "./shapes/ReplicaSet";
+import { Position } from "./shapes/Position";
+import { ConfigMap } from './shapes/ConfigMap';
+import { Service } from "./shapes/Service";
+import { Secret } from "./shapes/Secret";
+import { DeploymentMutation } from "./api/DeploymentMutation";
 
 window.onload = () => {
 	var width = window.innerWidth;
@@ -38,12 +38,33 @@ window.onload = () => {
 	con.addEventListener('drop', function (e) {
 		e.preventDefault();
 		stage.setPointersPositions(e);
-		let muser = new NamespaceMutation("mycluster", "http://localhost:50051/design")
-		muser.apply(muser.createNamespace({
-			apiVersion: "v1",
+		let muser = new DeploymentMutation("mycluster", "http://localhost:50051/design")
+		muser.apply(muser.createDeployment({
+			apiVersion: "apps/v1",
 			metadata: {
 				name: "namespacespace",
 				annotations: {},
+			},
+			labels: {},
+			spec: {
+				selector: {
+					matchLabels: {
+						app: "myapp"
+					}
+				},
+				replicas: 3,
+				template: {
+					metadata: {
+						app: "myapp",
+						namespace: "mynamespace"
+					},
+					spec: {
+						ports: {
+							containerPort: 9089
+						}
+					}
+				},
+
 			}
 		})).then(console.log)
 
