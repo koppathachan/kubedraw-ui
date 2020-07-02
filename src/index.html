@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
+	
+	<head>
+		<meta charset="utf-8" />
+		<title>Konva Drop DOM element Demo</title>
+		<script src="bundle.js"></script>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #f0f0f0;
+		}
 
-<head>
-    <script src="bundle.js"></script>
-    <meta charset="utf-8" />
-    <title>Konva Drop DOM element Demo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #f0f0f0;
-        }
-        
-        #container {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        
-        p {
-            margin: 4px;
-        }
-        
-        #drag-items img {
-            height: 60px;
-        }
-        
-        .sideNav {
-            width: 200px;
-            position: fixed;
-            top: 3px;
-            left: 6px;
-            bottom: 5px;
-            background: #eee;
-        }
-    </style>
+		#container {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+
+		p {
+			margin: 4px;
+		}
+
+		#drag-items img {
+			height: 60px;
+		}
+
+		.sideNav {
+			width: 200px;
+			position: fixed;
+			top: 3px;
+			left: 6px;
+			bottom: 5px;
+			background: #eee;
+		}
+	</style>
 </head>
 
 <body>
-    <p>
-        Drag and drop resources into the grey area.
-    </p>
-    <div id="drag-items">
-        <img src="/assets/pod.svg" draggable="true" />
-        <img src="/assets/deploy.svg" draggable="true" />
+	<p>
+		Drag and drop resources into the grey area.
+	</p>
+	<div id="drag-items">
+		<img src="/assets/pod.svg" draggable="true" />
+		<img src="/assets/deploy.svg" draggable="true" />
 		<img src="/assets/ns.svg" draggable="true" />
 		<img src="/assets/rs.svg" draggable="true" />
-    </div>
-    <div id="container"></div>
+	</div>
+	<div id="container"></div>
 </body>
 
 </html>
