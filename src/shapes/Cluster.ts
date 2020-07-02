@@ -127,18 +127,18 @@ export class Cluster {
 					muser.apply(muser.createService({
 						apiVersion: "v1",
 						metadata: {
-							name: "myService",
-							annotations: [
-								{key: "name", value: "Service"},
-								{key: "stroke", value: 'black'},
-								{key: "strokeWidth", value: "2"},
-								{key: "cornerRadius", value: "50"},
-								{key: "icon", value: './assets/svc.svg'}],
+							name: "hello-kubernetes",
+							annotations: [],
 						},
 						spec: {
-						  selector: {
-							  app: "appService"
-						  }
+							selector: {
+								app: "hello-kubernetes"
+							},
+							ports: {
+								port: 80,
+								targetPort: 8080,
+								protocol: ""
+							}
 						}
 					})).then(console.log);
 				}
