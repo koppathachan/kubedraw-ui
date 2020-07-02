@@ -6,5 +6,5 @@ export declare class SecretConfig extends ApiObjectConfig {
 	//TODO: chagne tooproper type
 	metadata: Metadata;
 	type: string;
-	data: Array<Hashdata>;
+	data?: Array<Hashdata>;
 }

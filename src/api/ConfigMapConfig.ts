@@ -5,5 +5,5 @@ import { Hashdata } from "./Hashdata";
 export declare class ConfigMapConfig extends ApiObjectConfig {
 	//TODO: chagne tooproper type
 	metadata: Metadata;
-	data: Array<Hashdata>;
+	data?: Array<Hashdata>;
 }
