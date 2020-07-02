@@ -9,6 +9,7 @@ import { Position } from "./Position";
 import { Ingress } from "./Ingress";
 import {ServiceMutation} from "../api/ServiceMutation";
 import {SecretMutation} from "../api/SecretMutation";
+import {ConfigMapMutation} from "../api/ConfigMapMutation";
 
 export class Cluster {
 	private readonly layer: Konva.Layer;
@@ -123,6 +124,11 @@ export class Cluster {
 						namespace.Group.add(configMap.Group);
 						this.layer.batchDraw();
 					}
+					let muser = new ConfigMapMutation("mycluster", "http://localhost:50051/design");
+					muser.apply(muser.createConfigmap({
+						apiVersion: "v1",
+						metadata: {name: "something"},
+					}))
 				} else if (itemURL == "http://localhost:3001/assets/ing.svg" && namespace != undefined) {
 					console.log(this.stage.find('.Service')[0].x());
 					image.setAttrs({
