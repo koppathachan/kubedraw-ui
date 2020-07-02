@@ -77,34 +77,26 @@ export class Cluster {
 					muser.apply(muser.createDeployment({
 						apiVersion: "v1",
 						labels: {
-							"app": "xyz"
+							"app": "hello-kubernetes"
 						},
 						metadata: {
-							name: "myDeployment",
-							annotations: [
-								{key: "name", value: "ReplicaSet"},
-								{key: "width", value: "180"},
-								{key: "height", value: "100"},
-								{key: "stroke", value: "black"},
-								{key: "strokeWidth", value: "2"},
-								{key: "cornerRadius", value: "50"},
-								{key: "icon", value: "./assets/rs.svg"}
-							],
+							name: "hello-kubernetes",
+							annotations: [],
 						},
 						spec: {
 							replicas: replicaSet.Containers,
 							selector: {
 								matchLabels: {
-									app: "vegam"
+									app: "hello-kubernetes"
 								},
 							},
 							template: {
-								metadata: {name: "Something"},
+								metadata: {name: "hello-kubernetes"},
 								spec: {
-									name: "How many names?",
-									image: "Whoa!",
+									name: "hello-kubernetes",
+									image: "paulbouwer/hello-kubernetes:1.8",
 									ports: {
-										containerPort: "containerPort"
+										containerPort: 8080
 									}
 								}
 							}

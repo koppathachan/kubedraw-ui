@@ -19,13 +19,7 @@ export class DeploymentMutation {
 			},
 			namespace: "${kobj.metadata.namespace}",
 			annotations: [
-				{key: "name", value: "ReplicaSet"},
-				{key: "width", value: "180"},
-				{key: "height", value: "100"},
-				{key: "stroke", value: "black"},
-				{key: "strokeWidth", value: "2"},
-				{key: "cornerRadius", value: "50"},
-				{key: "icon", value: "./assets/rs.svg"}
+				{key: "name", value: "ReplicaSet"}
 			],
 		  },
 		  spec: {
@@ -45,8 +39,8 @@ export class DeploymentMutation {
 				ports:{
 				  containerPort: "${kobj.spec.template.spec.ports.containerPort}"
 				},
-				name: "myapp",
-				image:"myapp"
+				name:"${kobj.spec.template.spec.name}",
+				image:"${kobj.spec.template.spec.image}"
 			  }
 			}
 		  }
