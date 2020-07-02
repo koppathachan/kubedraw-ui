@@ -2,16 +2,16 @@ import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
+import {ClusterStage} from './shapes/ClusterStage';
+import {Layer} from './shapes/Layer';
 
-var width = window.innerWidth;
-var height = window.innerHeight;
-
-var stage = new Konva.Stage({
+let stageConfig = {
 	container: 'container',
-	width: width,
-	height: height,
-});
-var layer = new Konva.Layer();
+	width: window.innerWidth,
+	height: window.innerHeight,
+}
+let stage = new ClusterStage(stageConfig);
+let layer = new Layer();
 stage.add(layer);
 
 var itemURL = '';
@@ -22,9 +22,9 @@ document.getElementById('drag-items')?.addEventListener('dragstart', function (e
 	itemURL = e.target?.src;
 });
 
-var con = stage.container();
+let con = stage.container();
 con.addEventListener('dragover', function (e) {
-	e.preventDefault(); // !important
+	e.preventDefault();
 });
 
 let namespace: any;
@@ -32,7 +32,6 @@ con.addEventListener('drop', function (e) {
 	let replicaSet: any;
 	e.preventDefault();
 	stage.setPointersPositions(e);
-
 	Konva.Image.fromURL(itemURL, function (image: Konva.Image) {
 		image.setAttrs({
 			x: 100,
@@ -49,7 +48,8 @@ con.addEventListener('drop', function (e) {
 				stroke: 'black',
 				strokeWidth: 2,
 				dashEnabled: true,
-				dash: ([2, 4])
+				dash: ([10, 5]),
+				cornerRadius: 10
 			}, image);
 			namespace.Group.position(stage.getPointerPosition());
 		} else if (itemURL == "http://localhost:3001/assets/rs.svg" && namespace != undefined) {

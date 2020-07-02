@@ -5,7 +5,7 @@ export type NodeDelegate = Konva.Group | Konva.Shape;
 
 //TODO define interface
 export abstract class Node<T extends NodeDelegate = NodeDelegate> {
-        readonly abstract delegate: T;
+        readonly abstract delegate: any;
 
         get Id(): string {
                 return this.delegate.id().toString();
