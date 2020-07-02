@@ -2,6 +2,7 @@ import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
+import {names} from "konva/types/Node";
 
 window.onload = () => {
 
@@ -67,6 +68,33 @@ window.onload = () => {
 				replicaSet.Group.position(new Position(namespace.Position.X + 350, namespace.Position.Y + 100));
 				replicaSet.addPods();
 				namespace.Group.add(replicaSet.Group);
+				layer.batchDraw();
+			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined) {
+				let group = new Konva.Group();
+				image.setAttrs({
+                    x: stage.getPointerPosition()?.x,
+                    y: stage.getPointerPosition()?.y,
+                    scaleX: 0.7,
+                    scaleY: 0.7,
+                    offsetX: -10,
+                    offsetY: -10,
+				});
+				group.add(image);
+				if (replicaSet != null) {
+					let line = new Konva.Line({
+						points: [
+							replicaSet.Position.X,
+							replicaSet.Position.Y,
+							image.position().x,
+							image.position().y
+						],
+						stroke: "blue",
+						strokeWidth: 2
+					});
+					group.add(line);
+					replicaSet.Group.add(group);
+				}
+				namespace.Group.add(group);
 				layer.batchDraw();
 			}
 		});
