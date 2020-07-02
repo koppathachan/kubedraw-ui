@@ -8,12 +8,15 @@ export class ConfigMapMutation {
 	apply = (query: string) => this.client.request(query)
 
 	createConfigmap = (kobj: ConfigMapConfig) => `
-	mutation {
-		createConfigmap(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-        metadata: {name: "${kobj.metadata.name}"}, 
-        data: [{"name" : "kube"}, {"test": "tested"}]) {
-			apiVersion,
-			kind
+	mutation{
+		createConfigmap(
+		  apiVersion : "${kobj.apiVersion}",
+		  cluster: "${this.cluster}",
+		  metadata: {name: "${kobj.metadata.name}"},
+		  data: "${kobj.data}"
+		){
+		  apiVersion,
+		  kind
 		}
 	  }
 	`;
