@@ -2,6 +2,7 @@ import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
+import {Service} from "./shapes/Service";
 import {names} from "konva/types/Node";
 
 window.onload = () => {
@@ -31,8 +32,8 @@ window.onload = () => {
 	});
 
 	let namespace: any;
+	let replicaSet: any;
 	con.addEventListener('drop', function (e) {
-		let replicaSet: any;
 		e.preventDefault();
 		stage.setPointersPositions(e);
 
@@ -42,8 +43,8 @@ window.onload = () => {
 				y: 0,
 				offsetX: 50,
 				offsetY: 30,
-				scaleX: 0.8,
-				scaleY: 0.8,
+				scaleX: 1,
+				scaleY: 1,
 			});
 			if (itemURL == "http://localhost:3001/assets/ns.svg") {
 				namespace = new Namespace({
@@ -59,6 +60,7 @@ window.onload = () => {
 				layer.batchDraw();
 			} else if (itemURL == "http://localhost:3001/assets/rs.svg" && namespace != undefined) {
 				replicaSet = new ReplicaSet({
+					name: "ReplicaSet",
 					width: 180,
 					height: 100,
 					stroke: 'black',
@@ -70,32 +72,29 @@ window.onload = () => {
 				namespace.Group.add(replicaSet.Group);
 				layer.batchDraw();
 			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined) {
-				let group = new Konva.Group();
 				image.setAttrs({
-                    x: stage.getPointerPosition()?.x,
-                    y: stage.getPointerPosition()?.y,
-                    scaleX: 0.7,
-                    scaleY: 0.7,
-                    offsetX: -10,
-                    offsetY: -10,
+					x: stage.find('.ReplicaSet')[0].getParent().attrs.x - 400,
+					y: stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
 				});
-				group.add(image);
 				if (replicaSet != null) {
-					let line = new Konva.Line({
+					let service = new Service({
 						points: [
-							replicaSet.Position.X,
-							replicaSet.Position.Y,
+							stage.find('.ReplicaSet')[0].getParent().attrs.x - 350,
+							stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
 							image.position().x,
 							image.position().y
 						],
-						stroke: "blue",
-						strokeWidth: 2
-					});
-					group.add(line);
-					replicaSet.Group.add(group);
+						stroke: "black",
+						strokeWidth: 2,
+					}, image);
+
+					replicaSet.Group.add(service.Group);
+					namespace.Group.add(replicaSet.Group);
+					layer.batchDraw();
 				}
-				namespace.Group.add(group);
-				layer.batchDraw();
+				else {
+					alert("Create a deployment first to add a service");
+				}
 			}
 		});
 	});
