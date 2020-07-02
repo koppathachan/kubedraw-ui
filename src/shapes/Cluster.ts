@@ -76,16 +76,20 @@ export class Cluster {
 					this.layer.batchDraw();
 					muser.apply(muser.createDeployment({
 						apiVersion: "v1",
+						labels: {
+							"app": "xyz"
+						},
 						metadata: {
 							name: "myDeployment",
 							annotations: [
 								{key: "name", value: "ReplicaSet"},
-								{key: "width", value: 180},
-								{key: "height", value: 100},
-								{key: "stroke", value: 'black'},
-								{key: "strokeWidth", value: 2},
-								{key: "cornerRadius", value: 50},
-								{key: "icon", value: './assets/rs.svg'}],
+								{key: "width", value: "180"},
+								{key: "height", value: "100"},
+								{key: "stroke", value: "black"},
+								{key: "strokeWidth", value: "2"},
+								{key: "cornerRadius", value: "50"},
+								{key: "icon", value: "./assets/rs.svg"}
+							],
 						},
 						spec: {
 							replicas: replicaSet.Containers,
@@ -111,7 +115,7 @@ export class Cluster {
 						x: this.stage.find('.ReplicaSet')[0].getParent().attrs.x - 400,
 						y: this.stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
 					});
-					let muser = new ServiceMutation("mycluster", "http://localhost:50051/design")
+					let muser = new ServiceMutation("mycluster", "http://localhost:50051/design");
 					let service = new Service({
 						name: "Service",
 						points: [
@@ -134,13 +138,16 @@ export class Cluster {
 							annotations: [
 								{key: "name", value: "Service"},
 								{key: "stroke", value: 'black'},
-								{key: "strokeWidth", value: 2},
-								{key: "cornerRadius", value: 50},
-								{key: "icon", value: './assets/svc.svg'},
-								{key: "iconPositionX", value: this.stage.find('.ReplicaSet')[0].getParent().attrs.x - 400},
-								{key: "iconPositionY", value: this.stage.find('.ReplicaSet')[0].getParent().attrs.y - 50}],
+								{key: "strokeWidth", value: "2"},
+								{key: "cornerRadius", value: "50"},
+								{key: "icon", value: './assets/svc.svg'}],
+						},
+						spec: {
+						  selector: {
+							  app: "appService"
+						  }
 						}
-					})).then(console.log)
+					})).then(console.log);
 				}
 				else if (itemURL == "http://localhost:3001/assets/secret.svg" && namespace != undefined) {
 					let secret = new Secret(image);
