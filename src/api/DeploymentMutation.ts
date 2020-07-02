@@ -19,8 +19,8 @@ export class DeploymentMutation {
 			},
 			namespace: "${kobj.metadata.namespace}",
 			annotations: [
-			  {key: "sf", value:"asdf"}
-			]
+				{key: "name", value: "ReplicaSet"}
+			],
 		  },
 		  spec: {
 			replicas:${kobj.spec.replicas},
@@ -39,8 +39,8 @@ export class DeploymentMutation {
 				ports:{
 				  containerPort: "${kobj.spec.template.spec.ports.containerPort}"
 				},
-				name: "myapp",
-				image:"myapp"
+				name:"${kobj.spec.template.spec.name}",
+				image:"${kobj.spec.template.spec.image}"
 			  }
 			}
 		  }
