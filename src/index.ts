@@ -2,12 +2,12 @@ import Konva from "konva";
 import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
+import {ConfigMap} from './shapes/ConfigMap';
 import {Service} from "./shapes/Service";
 import {Secret} from "./shapes/Secret";
 import {names} from "konva/types/Node";
 
 window.onload = () => {
-
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 
@@ -29,7 +29,7 @@ window.onload = () => {
 
 	var con = stage.container();
 	con.addEventListener('dragover', function (e) {
-		e.preventDefault(); // !important
+		e.preventDefault();
 	});
 
 	let namespace: any;
@@ -102,9 +102,19 @@ window.onload = () => {
 					scaleX: 1,
 					scaleY: 1,
 				});
-				secret.getData();
-				namespace.Group.add(secret.Group);
-				layer.batchDraw();
+				let isDataStored = secret.getData();
+				if (isDataStored) {
+					namespace.Group.add(secret.Group);
+					layer.batchDraw();
+				}
+			}
+			else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
+				let configMap = new ConfigMap(image);
+				let isDataStored = configMap.storeConfig();
+				if (isDataStored) {
+					namespace.Group.add(configMap.Group);
+					layer.batchDraw();
+				}
 			}
 		});
 	});

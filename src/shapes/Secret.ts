@@ -23,8 +23,8 @@ export class Secret extends Node {
         let secretData = prompt("Paste in here the secret data in JSON format \n(Including braces)", "");
         if (secretData != null) {
             this.secretData = JSON.parse(secretData);
+            return true;
         }
-        console.log(secretData);
     }
 
     get SecretData() {
