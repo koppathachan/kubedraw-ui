@@ -3,6 +3,7 @@ import {Namespace} from "./shapes/Namespace";
 import {ReplicaSet} from "./shapes/ReplicaSet";
 import {Position} from "./shapes/Position";
 import {Service} from "./shapes/Service";
+import {Secret} from "./shapes/Secret";
 import {names} from "konva/types/Node";
 
 window.onload = () => {
@@ -71,30 +72,39 @@ window.onload = () => {
 				replicaSet.addPods();
 				namespace.Group.add(replicaSet.Group);
 				layer.batchDraw();
-			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined) {
+			} else if (itemURL == "http://localhost:3001/assets/svc.svg" && namespace != undefined && replicaSet != undefined) {
 				image.setAttrs({
 					x: stage.find('.ReplicaSet')[0].getParent().attrs.x - 400,
 					y: stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
 				});
-				if (replicaSet != null) {
-					let service = new Service({
-						points: [
-							stage.find('.ReplicaSet')[0].getParent().attrs.x - 350,
-							stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
-							image.position().x,
-							image.position().y
-						],
-						stroke: "black",
-						strokeWidth: 2,
-					}, image);
+				let service = new Service({
+					points: [
+						stage.find('.ReplicaSet')[0].getParent().attrs.x - 350,
+						stage.find('.ReplicaSet')[0].getParent().attrs.y - 50,
+						image.position().x,
+						image.position().y
+					],
+					stroke: "black",
+					strokeWidth: 2,
+				}, image);
 
-					replicaSet.Group.add(service.Group);
-					namespace.Group.add(replicaSet.Group);
-					layer.batchDraw();
-				}
-				else {
-					alert("Create a deployment first to add a service");
-				}
+				replicaSet.Group.add(service.Group);
+				namespace.Group.add(replicaSet.Group);
+				layer.batchDraw();
+			}
+			else if (itemURL == "http://localhost:3001/assets/secret.svg" && namespace != undefined) {
+				let secret = new Secret(image);
+				image.setAttrs({
+					x: 700,
+					y: 0,
+					offsetX: 50,
+					offsetY: 30,
+					scaleX: 1,
+					scaleY: 1,
+				});
+				secret.getData();
+				namespace.Group.add(secret.Group);
+				layer.batchDraw();
 			}
 		});
 	});
