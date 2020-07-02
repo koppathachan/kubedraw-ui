@@ -10,13 +10,10 @@ export class Namespace extends Resource {
 
         constructor(rectConfig: Konva.RectConfig, image: Konva.Image) {
                 super(rectConfig, image);
-        }
-
-        get Shape() {
-                return this.Group;
+                this.Group.draggable(true);
         }
 
         on = (eventName: DomEvent, handler: Function) =>
-            this.delegate.on(eventName, (e) => handler(e.target))
+                this.delegate.on(eventName, (e) => handler(e.target))
         off = (eventName: string) => this.delegate.off(eventName);
 }
