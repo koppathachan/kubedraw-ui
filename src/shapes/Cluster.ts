@@ -56,7 +56,6 @@ export class Cluster {
 						apiVersion: "v1",
 						metadata: {
 							name: "mynamespace",
-							annotations: {},
 						}
 					})).then(console.log)
 				} else if (itemURL == "http://localhost:3001/assets/rs.svg" && namespace != undefined) {
