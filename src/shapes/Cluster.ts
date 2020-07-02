@@ -1,14 +1,17 @@
 import Konva from "konva";
-import {NamespaceMutation} from "../api/NamespaceMutation";
-import {Namespace} from "./Namespace";
-import {DeploymentMutation} from "../api/DeploymentMutation";
+import { NamespaceMutation } from "../api/NamespaceMutation";
+import { Namespace } from "./Namespace";
+import { ReplicaSet } from "./ReplicaSet";
+import { Service } from "./Service";
+import { Secret } from "./Secret";
+import { ConfigMap } from "./ConfigMap";
+import { Position } from "./Position";
+import { Ingress } from "./Ingress";
 import {ServiceMutation} from "../api/ServiceMutation";
-import {ReplicaSet} from "./ReplicaSet";
-import {Service} from "./Service";
-import {Secret} from "./Secret";
-import {ConfigMap} from "./ConfigMap";
-import {Position} from "./Position";
-import {Ingress} from "./Ingress";
+import {SecretMutation} from "../api/SecretMutation";
+import {ConfigMapMutation} from "../api/ConfigMapMutation";
+import {IngressMutation} from "../api/IngressMutation";
+import {DeploymentMutation} from "../api/DeploymentMutation";
 
 export class Cluster {
 	private readonly layer: Konva.Layer;
@@ -158,6 +161,12 @@ export class Cluster {
 						namespace.Group.add(secret.Group);
 						this.layer.batchDraw();
 					}
+					let muser = new SecretMutation("mycluster", "http://localhost:50051/design")
+					muser.apply(muser.createSecret({
+						apiVersion: "v1",
+						metadata: {name: "It's a secret"},
+						type: "Secret Data"
+					})).then(console.log);
 				}
 				else if (itemURL == "http://localhost:3001/assets/cm.svg" && namespace != undefined) {
 					let configMap = new ConfigMap(image);
@@ -166,6 +175,11 @@ export class Cluster {
 						namespace.Group.add(configMap.Group);
 						this.layer.batchDraw();
 					}
+					let muser = new ConfigMapMutation("mycluster", "http://localhost:50051/design");
+					muser.apply(muser.createConfigmap({
+						apiVersion: "v1",
+						metadata: {name: "The configuration"},
+					})).then(console.log);
 				} else if (itemURL == "http://localhost:3001/assets/ing.svg" && namespace != undefined) {
 					console.log(this.stage.find('.Service')[0].x());
 					image.setAttrs({
@@ -185,6 +199,29 @@ export class Cluster {
 					replicaSet.Group.add(ingress.Group);
 					namespace.Group.add(replicaSet.Group);
 					this.layer.batchDraw();
+					let muser = new IngressMutation("mycluster", "http://localhost:50051/design");
+					muser.apply(muser.createIngress({
+						apiVersion: "extensions/v1beta1",
+						metadata: {name: "Ingress"},
+						spec: {
+							rules: [{
+								host: "localhost",
+								http: {
+									paths: [
+										{
+											path: "/api/v1/mini-kube",
+											backend: [
+												{
+													serviceName: "hello-kubernetes",
+													servicePort: 80
+												}
+											]
+										}
+									]
+								}
+							}]
+						}
+					})).then(console.log);
 				}
 			});
 		});

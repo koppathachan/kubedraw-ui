@@ -5,5 +5,5 @@ import { IngressSpecInput } from "./IngressSpecInput";
 export declare class IngressConfig extends ApiObjectConfig {
     //TODO: chagne tooproper type
     metadata: Metadata;
-    spec: IngressSpecInput; 
+    spec: any; 
 }

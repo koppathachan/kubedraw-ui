@@ -9,12 +9,12 @@ export class SecretMutation {
 
 	createSecret = (kobj: SecretConfig) => `
 	mutation{
-		createConfigmap(
+		createSecret(
 		  apiVersion : "${kobj.apiVersion}",
 		  cluster: "${this.cluster}",
 		  metadata: {name: "${kobj.metadata.name}"},
 		  type: "${kobj.type}",
-		  data: "[{key: 'key1', value: 'val1'},{key: 'key2', value: 'val2'}]"
+		  data: [{key: "key1", value: "val1"},{key: "key2", value: "val2"}]
 		){
 		  apiVersion,
 		  kind
