@@ -1,5 +1,5 @@
-import { ServiceConfig } from "./ServiceConfig";
-import { GraphQLClient } from "graphql-request";
+import {ServiceConfig} from "./ServiceConfig";
+import {GraphQLClient} from "graphql-request";
 
 export class ServiceMutation {
 	private cluster: string;
@@ -25,7 +25,12 @@ export class ServiceMutation {
 		  spec: {
 			selector: {
 				app: "${kobj.spec.selector.app}"
-			}
+			},
+			ports: {
+					port: ${kobj.spec.ports.port},
+					targetPort: ${kobj.spec.ports.targetPort},
+					protocol: ""
+				}
 		  }
 		) {
 		  kind,
