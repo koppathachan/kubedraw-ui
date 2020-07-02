@@ -1,4 +1,4 @@
-import { SecretConfig } from "./SecretsConfig";
+import { SecretConfig } from "./SecretConfig";
 import { GraphQLClient } from "graphql-request";
 
 export class SecretMutation {
