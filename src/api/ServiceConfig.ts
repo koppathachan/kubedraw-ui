@@ -5,5 +5,5 @@ import {Metadata} from "./Metadata";
 export declare class ServiceConfig extends ApiObjectConfig {
     //TODO: chagne tooproper type
     metadata: Metadata;
-    // spec: ServiceSpecInput;
+    spec: any;
 }

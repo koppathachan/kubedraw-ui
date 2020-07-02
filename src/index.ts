@@ -6,6 +6,8 @@ import { ConfigMap } from './shapes/ConfigMap';
 import { Service } from "./shapes/Service";
 import { Secret } from "./shapes/Secret";
 import { DeploymentMutation } from "./api/DeploymentMutation";
+import { SecretMutation } from "./api/SecretMutation";
+import { ServiceMutation } from "./api/ServiceMutation";
 
 window.onload = () => {
 	var width = window.innerWidth;
@@ -38,33 +40,20 @@ window.onload = () => {
 	con.addEventListener('drop', function (e) {
 		e.preventDefault();
 		stage.setPointersPositions(e);
-		let muser = new DeploymentMutation("mycluster", "http://localhost:50051/design")
-		muser.apply(muser.createDeployment({
+		let muser = new ServiceMutation("mycluster", "http://localhost:50051/design")
+		muser.apply(muser.createService({
 			apiVersion: "apps/v1",
 			metadata: {
 				name: "namespacespace",
-				annotations: {},
+				annotations: [],
+				labels: {
+					app: "myapp"
+				}
 			},
-			labels: {},
 			spec: {
 				selector: {
-					matchLabels: {
-						app: "myapp"
-					}
-				},
-				replicas: 3,
-				template: {
-					metadata: {
-						app: "myapp",
-						namespace: "mynamespace"
-					},
-					spec: {
-						ports: {
-							containerPort: 9089
-						}
-					}
-				},
-
+					app: "myapp"
+				}
 			}
 		})).then(console.log)
 

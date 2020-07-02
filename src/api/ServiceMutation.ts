@@ -9,10 +9,30 @@ export class ServiceMutation {
 
 	createService = (kobj: ServiceConfig) => `
 	mutation {
-		createDeployment(apiVersion: "${kobj.apiVersion}", cluster: "${this.cluster}",
-		metadata: {name: "${kobj.metadata.name}", namespace: "${kobj.metadata.namespace}"}) {
-			apiVersion,
-			kind
+		createService(
+		  apiVersion: "${kobj.apiVersion}",
+		  cluster: "${this.cluster}",
+		  metadata: {
+			name: "${kobj.metadata.name}",
+			labels: {
+			  app:"${kobj.metadata.labels?.app}"
+			},
+			namespace: "${kobj.metadata.namespace}",
+			annotations: [
+			  {key: "sf", value:"asdf"}
+			]
+		  },
+		  spec: {
+			selector: {
+				app: "${kobj.spec.selector.app}"
+			}
+		  }
+		) {
+		  kind,
+		  metadata {
+			name,
+			labels {app}
+		  }
 		}
 	  }
 	`;
