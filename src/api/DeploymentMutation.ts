@@ -37,7 +37,10 @@ export class DeploymentMutation {
 				},
 				name:"${kobj.spec.template.spec.name}",
 				image:"${kobj.spec.template.spec.image}",
-				env: "${kobj.env}"
+				env: [{
+					name: "${kobj.env?.name}",
+					value: "${kobj.env?.value}"
+				}]
 			  }
 			}
 		  }
