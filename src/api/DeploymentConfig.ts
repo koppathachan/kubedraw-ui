@@ -1,6 +1,10 @@
 import { ApiObjectConfig } from "./ApiObjectConfig";
 import { Metadata } from "./Metadata";
-// import {DeploymentSpecInput} from "./DeploymentSpecInput";
+
+export class Envdata {
+    name?: string;
+    value?: string;
+}
 
 export declare class DeploymentConfig extends ApiObjectConfig {
 	labels: { [key: string]: string };
@@ -8,4 +12,5 @@ export declare class DeploymentConfig extends ApiObjectConfig {
 	metadata: Metadata;
 	// spec: DeploymentSpecInput;
 	spec: any;
+	env?: Envdata;
 }

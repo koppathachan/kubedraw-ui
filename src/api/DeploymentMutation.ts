@@ -36,7 +36,11 @@ export class DeploymentMutation {
 				  containerPort: "${kobj.spec.template.spec.ports.containerPort}"
 				},
 				name:"${kobj.spec.template.spec.name}",
-				image:"${kobj.spec.template.spec.image}"
+				image:"${kobj.spec.template.spec.image}",
+				env: [{
+					name: "${kobj.env?.name}",
+					value: "${kobj.env?.value}"
+				}]
 			  }
 			}
 		  }

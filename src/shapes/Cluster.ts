@@ -101,7 +101,10 @@ export class Cluster {
 									image: "paulbouwer/hello-kubernetes:1.8",
 									ports: {
 										containerPort: 8080
-									}
+									},
+									env: [{ 
+										name: "MESSAGE", value: "Welcome to Sourcery!"
+									}]
 								}
 							}
 						}
