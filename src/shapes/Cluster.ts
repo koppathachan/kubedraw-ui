@@ -103,7 +103,7 @@ export class Cluster {
 										containerPort: 8080
 									},
 									env: [{ 
-										key: "MESSAGE", value: "val1"
+										name: "MESSAGE", value: "Welcome to Sourcery!"
 									}]
 								}
 							}
